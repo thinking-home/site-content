@@ -1304,6 +1304,79 @@ publi object GetWidgetData(Widget widget, WidgetParameter[] parameters, ISession
 
 ### Реализация виджета в веб-интерфейсе
 
+В веб-интерфейсе реализация виджетов очень похожа на реализацию пользовательских разделов. Каждый виджет - это небольшая программа на JavaScript, которая описывает, что нужно отобразить пользователю и какие действия нужно выполнить при взаимодействии пользователя с элементами страницы. 
+
+#### Серверная часть
+
+Чтобы добавить реализацию виджета для веб-интерфейса, создайте в своем проекте `.js` файл с клиентским кодом виджета, установите ему свойство *Build action* в значение *EmbeddedResource* и при помощи специального атрибута `ThinkingHome.Plugins.WebUI.Attributes.WebWidgetAttribute` укажите url, по которому браузер сможет загрузить файл виджета с сервера. 
+
+Например:
+
+```c#
+[WebWidget("my-widget", "/widgets/my-widget.js", "MyPlugin.Resources.my-widget.js")]
+public class MicroclimatePlugin : PluginBase
+{
+    ...
+}
+```
+
+В качестве первого параметра нужно передать идентификатор виджета (тот, который вы указали для атрибута `[Widget]`, когда добавляли новый тип виджета). Вторым параметром нужно передать URL для файла, а третим - путь к файлу в ресурсах DLL (аналогично файлам с разделами). 
+
+#### Клиентская часть
+
+Как и в случае с разделами, вам необходимо описать в js файле виджета модуль для *require.js*, но в качестве прототипа модуля нужно использовать `lib.common.Widget` (а не `lib.common.AppSection`, как для разделов). Для виджета необходимо определить метод `show`, который будет вызван автоматически, когда будет необходимо отобразить виджет на странице.
+
+```js
+define(['lib'], function (lib) { 
+    var myWidget = lib.common.Widget.extend({
+        // выполнится при отображении виджета на странице
+        show: function(model) {
+            ...
+        }
+    });
+
+    return myWidget;
+});
+```
+
+Метод `show` получает на вход экземпляр `lib.backbone.model` с данными виджета, полученными с сервера:
+
+```json
+{
+    "id": "820aaed1-0a16-4721-9e0b-055c8eba022a",
+    "type": "my-widget",
+    "displayName": "My first widget",
+    "sortOrder": 2,
+    "data": {
+        "channel": 1
+    }
+}
+```
+
+
+
+```js
+define(['lib'], function (lib) { 
+    var myWidget = lib.common.Widget.extend({
+        
+        // выполнится при отображении виджета на странице
+        show: function(model) {
+            // создаем экземпляр представления
+            var view = new MyView({ model: model });
+
+            // подписываемся на события
+            this.listenTo(view, 'my:event:name', function() {
+                alert('Yo!');
+            });
+
+            // добавляем представление на страницу
+            this.region.show(view);
+        }
+    });
+
+    return myWidget;
+});
+```
 
 <div class="row">
 
