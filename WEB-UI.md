@@ -1385,8 +1385,8 @@ define(['lib'], function (lib) {
 По умолчанию к веб-интерфейсу уже подключены модули, перечисленные ниже. Вы можете добавлять их в список зависимостей своего плагина и использовать.
 
 - **lib._** - <http://underscorejs.org>
-- **lib.$** (v1.11) - <http://jquery.com/download>
-- **lib.handlebars** - <http://handlebarsjs.com/installation.html> - шаблонизатор
+- **lib.$** (v1.11) - <http://jquery.com>
+- **lib.handlebars** - <http://handlebarsjs.com/> - шаблонизатор
 - **lib.backbone** - <http://backbonejs.org>
 - **lib.marionette** (v2.4) - <http://marionettejs.com>
 - **lib.syphon** - <https://github.com/marionettejs/backbone.syphon> - сериализация/десериализация HTML форм
