@@ -1,0 +1,18 @@
+﻿[
+    {
+        "content": "С чего начать",
+        "url": "/getting-started.md"
+    },
+    {
+        "content": "Сценарии",
+        "url": "/scripts.md"
+    },
+    {
+        "content": "Создание плагинов",
+        "url": "/plugins.md"
+    },
+    {
+        "content": "UI для плагинов",
+        "url": "/web-ui.md"
+    }
+]
