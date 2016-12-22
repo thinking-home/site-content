@@ -25,25 +25,25 @@ public class ExamplePlugin : PluginBase
     private System.Timers.Timer timer;
 
     public override void InitPlugin()
-    {				 
+    {
         timer = new System.Timers.Timer(30000);
         timer.Elapsed += OnTimedEvent;
     }
 
     public override void StartPlugin()
-    {			 
+    {
         timer.Enabled = true;
     }
 
     public override void StopPlugin()
-    {					   
+    {
         timer.Enabled = false;
     }
-						   
+
     private void OnTimedEvent(object source, ElapsedEventArgs e)
-    {							   
+    {
         // по таймеру каждые 30 секунд пишем сообщение в лог
-        Logger.Info("Hello, world!");			   	   
+        Logger.Info("Hello, world!");
     }
 }
 ```
@@ -92,7 +92,7 @@ public class MyPlugin : PluginBase
         Debugger.Launch();
 
         ...
-    }	
+    }
 }
 ```
 
@@ -124,7 +124,7 @@ var noolitePlugin = Context.GetPlugin<NooLitePlugin>();
 noolitePlugin.SetLevel(50, 3);
 ```
 
- Метод `IReadOnlyCollection<PluginBase> GetAllPlugins()` возвращает коллекцию всех плагинов, доступных в приложении.
+Метод `IReadOnlyCollection<PluginBase> GetAllPlugins()` возвращает коллекцию всех плагинов, доступных в приложении.
 
 ```c#
 // вывод в лог названий всех доступных плагинов  
@@ -160,9 +160,9 @@ public void OnTimerElapsed(DateTime now)
     // время звонка будильника - 8:15
     var alarmTime = now.Date.AddHours(8).AddMinutes(15);	
 
-    if (now >= alarmTime &&               // если пришло время звонка будильника 
+    if (now >= alarmTime &&               // если пришло время звонка будильника
         now < alarmTime.AddMinutes(5) &&  // и еще не прошло 5 минут
-        lastAlarmTime < alarmTime)        // и будильник сегодня еще не звонил                 
+        lastAlarmTime < alarmTime)        // и будильник сегодня еще не звонил
     {
         lastAlarmTime = now;
         PlaySound();
@@ -183,15 +183,15 @@ public void OnTimerElapsed(DateTime now)
 Для более удобной подписки на события (без необходимости указывать идентификатор) можно создать собственный атрибут, унаследованный от `System.ComponentModel.Composition.ExportAttribute` и передать нужный идертификатор при вызове базового конструктора.
 
 ```c#
-// собственный атрибут												 
+// собственный атрибут
 [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
 public class OnTimerElapsedAttribute : ExportAttribute
 {
     public OnTimerElapsedAttribute()
         : base("E62C804C-B96B-4CA8-822E-B1725B363534")
-    {  
+    {
     }
-}		
+}
 
 ...
 	
@@ -213,14 +213,14 @@ public void OnTimerElapsed(DateTime now)
 // коллекция обработчиков события
 [ImportMany("E62C804C-B96B-4CA8-822E-B1725B363534")]
 public Action<DateTime>[] OnEvent { get; set; }
-	
+
 // инициализируем таймер
 public override void Init()
 {
     timer = new System.Timers.Timer(TIMER_INTERVAL);
     timer.Elapsed += OnTimedEvent;
 }
-	
+
 // при срабатывании таймера вызываем обработчики события
 private void OnTimedEvent(object source, ElapsedEventArgs e)
 {
@@ -284,7 +284,7 @@ public class ScriptsPlugin : PluginBase
     {
         mapper.Class<ScriptEventHandler>(cfg => cfg.Table("Scripts_UserScript"));
         ...
-    }	
+    }
     ...
 }
 ```
@@ -304,7 +304,7 @@ public class ScriptEventHandler
 {
     // будет связано с полем "Id"
     public virtual Guid Id { get; set; }
-	
+
     // будет связано с полем "EventAlias"
     public virtual string EventAlias { get; set; }
 
@@ -335,18 +335,18 @@ using (var session = Context.OpenSession())
 using (var session = Context.OpenSession())
 {
     // создаем новй объект UserScript
-    var newScript = new UserScript 
+    var newScript = new UserScript
         { 
-            Id = Guid.NewGuid(), 
-            Name = "script name", 
-            Body = "script body" 
+            Id = Guid.NewGuid(),
+            Name = "script name",
+            Body = "script body"
         };
 
     // сохраняем его в БД
     session.Save(newScript);
 
     // ищем в БД объект с именем "test"
-	var scriptForDelete = session
+    var scriptForDelete = session
         .Query<UserScript>()
         .FirstOrDefault(s => s.Name == "test");
 
@@ -409,7 +409,7 @@ public void AutomaticUpdate()
 using ThinkingHome.Plugins.Listener.Api;
 using ThinkingHome.Plugins.Listener.Attributes;
 ...
-	
+
 [HttpCommand("/api/my-plugin/my-method")]
 public object MyMethod(HttpRequestParams request)
 {
@@ -432,10 +432,10 @@ public class HttpRequestParams
 {
     // коллекция параметров URL
     public readonly NameValueCollection UrlData;
-    	
+
     // коллекция POST параметров
     public readonly NameValueCollection FormData;
-    
+
     // получение необзятельных параметров (переданых любым способом)
     // если параметр отсутствует или не может быть преобразован
     // в значение нужного типа, то возвращается null
@@ -443,7 +443,7 @@ public class HttpRequestParams
     public int? GetInt32(string name);
     public Guid? GetGuid(string name);
     public bool? GetBool(string name);
-    	
+
     // получение обзятельных параметров (переданых любым способом)
     // если параметр отсутствует или не может быть преобразован
     // в значение нужного типа, генерируется исключение
@@ -480,14 +480,14 @@ public object UpdateLocationWeather(HttpRequestParams request)
 ```c#
 // eot-версия шрифта
 [HttpEmbeddedResource(
-    "/webapp/weather/fonts/weathericons-regular-webfont.eot", 
-    "ThinkingHome.Plugins.Weather.Resources.fonts.weathericons-regular-webfont.eot", 
+    "/webapp/weather/fonts/weathericons-regular-webfont.eot",
+    "ThinkingHome.Plugins.Weather.Resources.fonts.weathericons-regular-webfont.eot",
     "application/vnd.ms-fontobject")]
 
 // svg-версия шрифта
 [HttpEmbeddedResource(
-    "/webapp/weather/fonts/weathericons-regular-webfont.svg", 
-    "ThinkingHome.Plugins.Weather.Resources.fonts.weathericons-regular-webfont.svg", 
+    "/webapp/weather/fonts/weathericons-regular-webfont.svg",
+    "ThinkingHome.Plugins.Weather.Resources.fonts.weathericons-regular-webfont.svg",
     "image/svg+xml")]
 
     ...
@@ -552,7 +552,7 @@ public class FileSystemResourceAttribute : HttpResourceAttribute
 
 ```c#
 Context.GetPlugin<ListenerPlugin>().Send(
-    "microclimate:sensor:update", 
+    "microclimate:sensor:update",
     new { id = sensor.Id, t = intTemperature, h = humidity });
 ```
 
@@ -571,7 +571,7 @@ var connection = $.hubConnection(),
 
 // получение сообщений
 hub.on('serverMessage', function(message){
-    /* message: 
+    /* message:
     {
         "guid":"f7d14f74-b5d9-4439-926f-e30f4a686a77",
         "timestamp":"2016-09-12T22:59:41.5679055+03:00",
@@ -644,7 +644,7 @@ Context.GetPlugin<NooLitePlugin>().SendLedCommand(6, 4, 255, 0, 255);
 [OnRXCommandReceived]
 public void MyNooLiteRXHandler(int cmd, int channel, byte[] data)
 {
-	Logger.Info("Получена команда {0} в {1} канале", cmd, channel);
+    Logger.Info("Получена команда {0} в {1} канале", cmd, channel);
 }
 ```
 
@@ -660,7 +660,7 @@ public void MyNooLiteRXHandler(int cmd, int channel, byte[] data)
 [OnMicroclimateDataReceived]
 public void MyMicroclimateHandler(int channel, decimal temperature, int humidity)
 {
-	Logger.Info("Microclimate: c={0}, t={1}, h={2}", channel, temperature, humidity);
+    Logger.Info("Microclimate: c={0}, t={1}, h={2}", channel, temperature, humidity);
 }
 ```
 
@@ -787,7 +787,7 @@ host.executeMethod("methodAlias", "parameter1", 100500);
 [ScriptCommand("nooliteSetLevel")]
 public void SetLevel(int channel, int level)
 {
-	...
+    ...
 }
 ```
 

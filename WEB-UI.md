@@ -11,8 +11,8 @@
 ```js
 define(              // определяем новый модуль нашего приложения
     ['lib'],         // список зависимостей нашего модуля
-    function (lib) {	// функция инициализации нашего модуля 
-        
+    function (lib) { // функция инициализации нашего модуля
+
         // шаблон содержимого: заголовок и кнопка
         var myTemplate = lib.handlebars.compile(
             '<h1>Hello!</h1><input type="button" class="btn btn-default" value="click me" />');
@@ -31,12 +31,12 @@ define(              // определяем новый модуль нашег�
             start: function () {
                 // создаем экземпляр представления
                 var view = new myView();
-				
+
                 // подписываемся на события
                 this.listenTo(view, 'my-event', function() {
                     alert('I\'m happy!');
                 });
-				
+
                 // отображаем представление пользователю
                 this.application.setContentView(view);
             }
@@ -54,9 +54,9 @@ define(              // определяем новый модуль нашег�
 
 ```c#
 [AppSection(
-    "My plugin",             // название рездела 
-    SectionType.Common,      // тип раздела (Common/System) 
-    "/my-plugin/my-file.js", // URL для js-файла с реализацией интерфейса 
+    "My plugin",             // название рездела
+    SectionType.Common,      // тип раздела (Common/System)
+    "/my-plugin/my-file.js", // URL для js-файла с реализацией интерфейса
     "ThinkingHome.Plugins.MyPlugin.Resources.my-file.js")] // путь к js-файлу раздела в ресурсах DLL
 ```
 
@@ -80,11 +80,11 @@ define(              // определяем новый модуль нашег�
 ```c#
 [Plugin]
 [JavaScriptResource(
-    "/my-plugin/my-file.js", // желаемый URL файла 
+    "/my-plugin/my-file.js",    // желаемый URL файла
     "ThinkingHome.Plugins.MyPlugin.Resources.my-file.js")] // путь к файлу в ресурсах DLL
 public class MyPlugin : PluginBase
 {
-	...
+    ...
 }   
 ```
 
@@ -92,9 +92,9 @@ public class MyPlugin : PluginBase
 
 ```c#
 [Plugin]
-[AppSection("My plugin",     // название рездела
-    SectionType.Common,      // тип раздела
-    "/my-plugin/my-file.js", // URL
+[AppSection("My plugin",        // название рездела
+    SectionType.Common,         // тип раздела
+    "/my-plugin/my-file.js",    // URL
     "ThinkingHome.Plugins.MyPlugin.Resources.my-file.js")]
 public class MyPlugin : PluginBase
 {
@@ -224,7 +224,7 @@ start: function () {
     ...
     // создаем экземпляр представления
     var view = new peopleView({ model: myModel });
-    
+
     // отображаем представление пользователю
     this.application.setContentView(view);
 }
@@ -240,7 +240,7 @@ var items = [
     { id: 3, name: 'Nikolay', surname: 'Gogol' },
     { id: 4, name: 'Alexander', surname: 'Pushkin' }
 ];
-	
+
 var model = new lib.backbone.Collection(items);
 ...
 ```
@@ -251,14 +251,14 @@ var model = new lib.backbone.Collection(items);
 ...
 var collection = new lib.backbone.Collection(items);
     collection.comparator = 'surname';
-		
+
     collection.sort();
     collection.each(function(obj) {
         console.log('%s %s', obj.get('name'), obj.get('surname'));
     });
-		
-// будет выведено по фамилии в алфавитном порядке: 
-// Nikolay Gogol, Alexander Pushkin, Lev Tolstoy, Ivan Turgenev 
+
+// будет выведено по фамилии в алфавитном порядке:
+// Nikolay Gogol, Alexander Pushkin, Lev Tolstoy, Ivan Turgenev
 ```
 
 Для отображения коллекции на странице используйте базовое представление `lib.marionette.CompositeView` ([документациия](http://marionettejs.com/docs/v2.4.7/marionette.compositeview.html)). Кроме шаблона,ему нужно указать прототип представления для отображения элементов коллекци, а также селектор для контейнера, в который они будут добавлены.
@@ -415,7 +415,7 @@ define(
  *************************************************/
 
 define([
-    'lib', 
+    'lib',
     'text!myplugin/layout-template.tpl', // общий шаблон страницы
     'text!myplugin/list-template.tpl',   // шаблон для списка объектов
     'text!myplugin/item-template.tpl'    // шаблон для элемента списка
@@ -472,7 +472,7 @@ define(
         // был возвращен из функции инициализации модуля с представлениями
         var module = {
             start: function () {
-				
+
                 var model = ...
                 var view = new views.listView({ collection: model });
                 this.application.setContentView(view);
@@ -497,8 +497,8 @@ define(
 
 ```c#
 [CssResource(
-    "/webapp/weather/css/weather-icons.min.css", 
-    "ThinkingHome.Plugins.Weather.Resources.css.weather-icons.min.css", 
+    "/webapp/weather/css/weather-icons.min.css",
+    "ThinkingHome.Plugins.Weather.Resources.css.weather-icons.min.css",
     AutoLoad = true)]
 ```
 
@@ -742,8 +742,8 @@ function loadData() {
     var obj = lib.$.Deferred();
     lib.$.getJSON('/api/my-plugin/get-data')
         .done(function (data) {
-		
-        // после получения данных с сервера создаем для них модель 
+
+        // после получения данных с сервера создаем для них модель
         // меняем состояние операции на "завершена успешно"
         var model = new lib.backbone.Model(data);
         obj.resolve(model);
@@ -765,10 +765,10 @@ function loadData() {
 var module = {
     start: function () {
         var query = loadData(), // функция из предыдущего примера
-            application = this.application;	
+            application = this.application;
 
         query.done(function(data) {
-            // при успешном завершении ajax запроса отображаем полученные данные на странице 
+            // при успешном завершении ajax запроса отображаем полученные данные на странице
             var view = new myView({model: data});
             application.setContentView(view);
         });
@@ -798,10 +798,10 @@ var d1 = new $.Deferred();
 var d2 = new $.Deferred();
 var d3 = new $.Deferred();
 $.when(d1, d2, d3).always(function (v1, v2, v3) {
-  
-	console.log('v1', v1 ); // v1 is undefined
-	console.log('v2', v2 ); // v2 is "abc"
-	console.log('v3', v3 ); // v3 is an array [ 1, 2, 3, 4, 5 ]
+
+    console.log('v1', v1 ); // v1 is undefined
+    console.log('v2', v2 ); // v2 is "abc"
+    console.log('v3', v3 ); // v3 is an array [ 1, 2, 3, 4, 5 ]
 });
 d1.resolve();
 d2.resolve('abc');
@@ -822,7 +822,7 @@ define(['lib'], function (lib) {
     var api = {
         // пример запроса без параметров
         loadData: function(){
-            // пример обращения к серверу	
+            // пример обращения к серверу
             var obj = $.Deferred();
 
             $.getJSON('/api/my-plugin/get-data')
@@ -830,15 +830,15 @@ define(['lib'], function (lib) {
                     var model = new backbone.Model(data);
                     obj.resolve(model);
                 });
-	
+
             return obj;
         },
 
         // пример запроса с параметрами
-        saveObject: function(obj){	
+        saveObject: function(obj){
             ...
         }
-    };	
+    };
 
     return api;
 });
@@ -861,7 +861,7 @@ define([... , 'my-plugin/queries'],
                     // "save:my:object", отправляем запрос на сервер
                     view.on('save:my:object', function(){
                         // получаем модель из представления
-                        var model = this.model;		
+                        var model = this.model;
 
                         // запускаем запрос к серверу
                         queries.saveObject(model);
@@ -979,7 +979,7 @@ internal class MyTexts {
 
 ```js
 define(['lib', 'json!my-plugin/lang.json'],
-	function (lib, lang) {
+    function (lib, lang) {
         return lib.common.AppSection.extend({
             start: function() {
                 // будет выведен заголовок на нужном языке
@@ -993,7 +993,7 @@ define(['lib', 'json!my-plugin/lang.json'],
 
 ```js
 define(['lib', 'lang!my-plugin/lang.json'],
-	function (lib, lang) {
+    function (lib, lang) {
         return lib.common.AppSection.extend({
             start: function() {
                 // будет выведен заголовок на нужном языке
@@ -1040,7 +1040,7 @@ define(['lib'], function (lib) {
 
         onBeforeDestroy: function() {
             // отписываемся от событий
-            this.application.radio.off('channel-name');    
+            this.application.radio.off('channel-name');
         }
     });
 });
@@ -1056,7 +1056,7 @@ define(['lib'], function (lib) {
             // любые данные, которые хотите отправить
             var data = { ... };
 
-            // это сообщение получат все модули, подписавшиеся на канал channel-name 
+            // это сообщение получат все модули, подписавшиеся на канал channel-name
             this.application.radio.sendMessage('channel-name', data);
         }
     });
@@ -1172,7 +1172,7 @@ public WidgetParameterMetaData[] GetWidgetMetaData(ISession session, Logger logg
 
     return new[] { paramEngine, paramCount };
 }
-```  
+```
 
 Результат:
 
@@ -1214,7 +1214,7 @@ public WidgetParameterMetaData[] GetWidgetMetaData(ISession session, Logger logg
 publi object GetWidgetData(Widget widget, WidgetParameter[] parameters, ISession session, Logger logger)
 {
     var scriptId = parameters.First(p => p.Name == "script-id").ValueGuid;
-	var script = session.Get<UserScript>(scriptId);
+    var script = session.Get<UserScript>(scriptId);
 
     return new
     {
@@ -1237,7 +1237,7 @@ publi object GetWidgetData(Widget widget, WidgetParameter[] parameters, ISession
         { ... },
         { ... }
     ],
-    
+
     // список панелей активного рабочего стола
     "panels": [
         { ... },

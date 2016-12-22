@@ -45,7 +45,7 @@ host.logError('plugin is not found!')
 
 ```js
 host.logError('{0} + {1} = {2}', x, y, x + y);
-``` 
+```
 
 Если x = 2 и y = 7, то в лог будет записана строка "2 + 7 = 9".
 
