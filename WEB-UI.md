@@ -52,7 +52,7 @@ define(              // определяем новый модуль нашег�
 
 Теперь добавьте своему плагину атрибут `ThinkingHome.Plugins.WebUI.Attributes.AppSection` и передайте ему в параметрах название и тип раздела, а также путь к созданному js файлу в ресурсов DLL и желаемый URL для файла.
 
-```csharp
+```c#
 [AppSection(
     "My plugin",             // название рездела 
     SectionType.Common,      // тип раздела (Common/System) 
@@ -77,7 +77,7 @@ define(              // определяем новый модуль нашег�
 
 Для того, чтобы назначить файлу URL, пометьте свой плагин атрибутом `ThinkingHome.Plugins.WebUI.Attributes.JavaScriptResource` из сборки `ThinkingHome.Plugins.WebUI`. Он унаследован от `ThinkingHome.Plugins.Listener.Attributes.HttpEmbeddedResourceAttribute` и устанавливает для ответа правильный content type. Самый простой способ подключить библиотеку `ThinkingHome.Plugins.WebUI` в свой проект - набрать в консоли Nuget Package Manager `Install-Package ThinkingHome.Plugins.WebUI`.
 
-```csharp
+```c#
 [Plugin]
 [JavaScriptResource(
     "/my-plugin/my-file.js", // желаемый URL файла 
@@ -90,7 +90,7 @@ public class MyPlugin : PluginBase
 
 Плагин `ThinkingHome.Plugins.WebUI` предоставляет также специальный атрибут `ThinkingHome.Plugins.WebUI.Attributes.AppSection`, с помощью которого вы можете автоматически добавить свой раздел в меню системных или пользовательских разделов. Просто используйте атрибут `[AppSection]` вместо атрибута `[JavaScriptResource]`.
 
-```csharp
+```c#
 [Plugin]
 [AppSection("My plugin",     // название рездела
     SectionType.Common,      // тип раздела
@@ -114,10 +114,10 @@ public class MyPlugin : PluginBase
 define(['lib'], function (lib) {
     var module = lib.common.AppSection.extend({
         start: function () {
-            alert("module started!");
+            alert('module started!');
         },
         onBeforeDestroy: function() {
-            alert("module finished!");
+            alert('module finished!');
         }
     });
 
@@ -367,7 +367,7 @@ template: lib.handlebars.compile('{{name}} ({{id}})')
 
 Вот пример подключнения шаблона для страницы с прогнозом погоды:
 
-```csharp
+```c#
 [HttpEmbeddedResource(
     "/webapp/weather/forecast.tpl",  // URL для загрузки файла
     "ThinkingHome.Plugins.Weather.Resources.js.forecast.forecast.tpl")]  // путь к файлу в ресурсах плагина
@@ -450,7 +450,7 @@ define([
 
 В результате должен получиться примерно такой код:
 
-```csharp
+```c#
 [Plugin]
 [AppSection("My plugin", SectionType.Common, "/my-plugin/index.js", "ThinkingHome.Plugins.MyPlugin.Resources.index.js")]
 [JavaScriptResource("/my-plugin/views.js", "ThinkingHome.Plugins.MyPlugin.Resources.views.js")]
@@ -529,7 +529,7 @@ var MyView = lib.marionette.ItemView.extend({
 ```js
 var view = new MyView();
 view.on('something:do:it', function(args){
-    alert("I DID IT!");
+    alert('I DID IT!');
 });
 ```
 
@@ -647,7 +647,7 @@ view.on('childview:delete:item', function(childView){
 
 Например, вот таким образом в UI загружается список сценариев:
 
-```csharp
+```c#
 // метод плагина (на стороне сервера)
 [HttpCommand("/api/scripts/list")]
 public object GetScriptList(HttpRequestParams request)
@@ -670,7 +670,7 @@ lib.$.getJSON('/api/scripts/list')
 
 Пример запроса с параметрами:
 
-```csharp
+```c#
 // метод плагина (на стороне сервера)
 [HttpCommand("/api/scripts/run")]
 public object RunScript(HttpRequestParams request)
@@ -685,7 +685,7 @@ public object RunScript(HttpRequestParams request)
 
 ```js
 // пример вызова методом POST (на стороне клиента)
-lib.$.post('/api/scripts/run', { scriptId: "8819B702-55BB-44CD-85C6-629D949ACAF6" })
+lib.$.post('/api/scripts/run', { scriptId: '8819B702-55BB-44CD-85C6-629D949ACAF6' })
     .done(function () {
         ...
     });
@@ -713,9 +713,9 @@ var obj = $.Deferred();
 
  Deferred object имеет специальный метод `state()` позволяющий узнать текущее состояние асинхронной операции. Метод возвращает строковое значение:
 
-- `"pending"` - означает, что в текущий момент операция выполняется (т.е. не *завершена успешно* и не *завершена неудачей*);
-- `"resolved"` - означает, что операция *завершена успешно*;
-- `"rejected"` - означает, что операция *завершена неудачей*.
+- `'pending'` - означает, что в текущий момент операция выполняется (т.е. не *завершена успешно* и не *завершена неудачей*);
+- `'resolved'` - означает, что операция *завершена успешно*;
+- `'rejected'` - означает, что операция *завершена неудачей*.
 
 Например:
 
@@ -942,7 +942,7 @@ Lang
 
 то для него будет сгенерирован статический класс:
 
-```csharp
+```c#
 // MyTexts.Designer.cs
 
 internal class MyTexts {
@@ -960,7 +960,7 @@ internal class MyTexts {
 
 Чтобы использовать языковые ресурсы на стороне клиента, необходимо указать для них URL, по кторому их можно было бы запросить из бразера. Для этого пометьте свой плагин атрибутом `ThinkingHome.Plugins.WebUI.Attributes.HttpI18NResourceAttribute`. В его конструктор нужно передать два параметра: URL, с которого можно будет загрузить тексты, и путь к файлу ресурсов DLL.
 
-```csharp
+```c#
 [HttpI18NResource("/my-plugin/lang.json", "ThinkingHome.Plugins.MyPlugin.Lang.MyTexts")]
 ```
 
@@ -1008,7 +1008,7 @@ define(['lib', 'lang!my-plugin/lang.json'],
 ```js
     var myView = lib.marionette.ItemView.extend({
         template: lib.handlebars.compile(
-            '<h1>{{lang 'Title'}}</h1><p>{{lang 'Body'}}</p>'),
+            "<h1>{{lang 'Title'}}</h1><p>{{lang \'Body\'}}</p>"),
         templateHelpers: { lang: lang }
     });
 ```

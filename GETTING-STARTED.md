@@ -72,7 +72,6 @@ host.logInfo("hello, world!");
 
 // включаем свет в 3 канале адаптера
 host.executeMethod("nooliteSetLevel", 3, 100);
-
 ```
 
 Сохраняем сценарий и видим, что он добавился в общий список. Чтобы запустить его, нажмите кнопку "Run manually". При нажатии этой кнопки вы увидите сообщение "The script [script name] has been executed" и, если к компьютеру был подключен [USB адаптер nooLite](http://thinking-home.ru/category/noolite-usb-adapters.aspx), то светильники, привязанные к 3-му каналу адаптера будут включены. После этого идем в папку с логами `C:\Program Files\ThinkingHome\service\Logs` и смотрим файл `2014-10-08-ThinkingHome.Plugins.Scripts.ScriptsPlugin.log` (вместо "2014-10-08" будет сегодняшняя дата) - там должна быть надпись
