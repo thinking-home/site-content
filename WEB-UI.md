@@ -52,7 +52,7 @@ define(              // определяем новый модуль нашег�
 
 Теперь добавьте своему плагину атрибут `ThinkingHome.Plugins.WebUI.Attributes.AppSection` и передайте ему в параметрах название и тип раздела, а также путь к созданному js файлу в ресурсов DLL и желаемый URL для файла.
 
-```c#
+```csharp
 [AppSection(
     "My plugin",             // название рездела
     SectionType.Common,      // тип раздела (Common/System)
@@ -77,7 +77,7 @@ define(              // определяем новый модуль нашег�
 
 Для того, чтобы назначить файлу URL, пометьте свой плагин атрибутом `ThinkingHome.Plugins.WebUI.Attributes.JavaScriptResource` из сборки `ThinkingHome.Plugins.WebUI`. Он унаследован от `ThinkingHome.Plugins.Listener.Attributes.HttpEmbeddedResourceAttribute` и устанавливает для ответа правильный content type. Самый простой способ подключить библиотеку `ThinkingHome.Plugins.WebUI` в свой проект – набрать в консоли Nuget Package Manager `Install-Package ThinkingHome.Plugins.WebUI`.
 
-```c#
+```csharp
 [Plugin]
 [JavaScriptResource(
     "/my-plugin/my-file.js",    // желаемый URL файла
@@ -90,7 +90,7 @@ public class MyPlugin : PluginBase
 
 Плагин `ThinkingHome.Plugins.WebUI` предоставляет также специальный атрибут `ThinkingHome.Plugins.WebUI.Attributes.AppSection`, с помощью которого вы можете автоматически добавить свой раздел в меню системных или пользовательских разделов. Просто используйте атрибут `[AppSection]` вместо атрибута `[JavaScriptResource]`.
 
-```c#
+```csharp
 [Plugin]
 [AppSection("My plugin",        // название рездела
     SectionType.Common,         // тип раздела
@@ -367,7 +367,7 @@ template: lib.handlebars.compile('{{name}} ({{id}})')
 
 Вот пример подключнения шаблона для страницы с прогнозом погоды:
 
-```c#
+```csharp
 [HttpEmbeddedResource(
     "/webapp/weather/forecast.tpl",  // URL для загрузки файла
     "ThinkingHome.Plugins.Weather.Resources.js.forecast.forecast.tpl")]  // путь к файлу в ресурсах плагина
@@ -450,7 +450,7 @@ define([
 
 В результате должен получиться примерно такой код:
 
-```c#
+```csharp
 [Plugin]
 [AppSection("My plugin", SectionType.Common, "/my-plugin/index.js", "ThinkingHome.Plugins.MyPlugin.Resources.index.js")]
 [JavaScriptResource("/my-plugin/views.js", "ThinkingHome.Plugins.MyPlugin.Resources.views.js")]
@@ -495,7 +495,7 @@ define(
 
 Например, вот так подключается файл со стилями для погодных иконок:
 
-```c#
+```csharp
 [CssResource(
     "/webapp/weather/css/weather-icons.min.css",
     "ThinkingHome.Plugins.Weather.Resources.css.weather-icons.min.css",
@@ -647,7 +647,7 @@ view.on('childview:delete:item', function(childView){
 
 Например, вот таким образом в UI загружается список сценариев:
 
-```c#
+```csharp
 // метод плагина (на стороне сервера)
 [HttpCommand("/api/scripts/list")]
 public object GetScriptList(HttpRequestParams request)
@@ -670,7 +670,7 @@ lib.$.getJSON('/api/scripts/list')
 
 Пример запроса с параметрами:
 
-```c#
+```csharp
 // метод плагина (на стороне сервера)
 [HttpCommand("/api/scripts/run")]
 public object RunScript(HttpRequestParams request)
@@ -942,7 +942,7 @@ Lang
 
 то для него будет сгенерирован статический класс:
 
-```c#
+```csharp
 // MyTexts.Designer.cs
 
 internal class MyTexts {
@@ -960,7 +960,7 @@ internal class MyTexts {
 
 Чтобы использовать языковые ресурсы на стороне клиента, необходимо указать для них URL, по кторому их можно было бы запросить из бразера. Для этого пометьте свой плагин атрибутом `ThinkingHome.Plugins.WebUI.Attributes.HttpI18NResourceAttribute`. В его конструктор нужно передать два параметра: URL, с которого можно будет загрузить тексты, и путь к файлу ресурсов DLL.
 
-```c#
+```csharp
 [HttpI18NResource("/my-plugin/lang.json", "ThinkingHome.Plugins.MyPlugin.Lang.MyTexts")]
 ```
 
@@ -1089,7 +1089,7 @@ define(['lib'], function (lib) {
 
 Для атрибута `[Widget]` необходимо указать обязательный параметр – идентификатор виджета (строка). Идентификатор должен быть уникальным в пределах приложения. 
 
-```c#
+```csharp
 [Widget("my-widget")]
 public class MyWidget : IWidgetDefinition
 {
@@ -1101,7 +1101,7 @@ public class MyWidget : IWidgetDefinition
 
 Методы интерфейса `IWidgetDefinition` предоставляют информацию, которая нужна для настройки параметров виджета через редактор и для отображения виджета на стартовой странице.
 
-```c#
+```csharp
 public interface IWidgetDefinition
 {
     // название виджета
@@ -1125,7 +1125,7 @@ public interface IWidgetDefinition
 
 Каждый параметр – это экземпляр класса `WidgetParameterMetaData`.
 
-```c#
+```csharp
 public class WidgetParameterMetaData
 {
     // идентификатор параметра
@@ -1149,7 +1149,7 @@ public class WidgetParameterMetaData
 
 Предположим, вы делаете виджет, позволяющий искать информацию в поисковой системе. Вы хотите уметь настраивать для него два параметра: поисковую систему (Yandex/Google) и количество выводимых результатов поиска. В этом случае, метод `GetWidgetMetaData` вашего виджета может выглядеть примерно так:
 
-```c#
+```csharp
 public WidgetParameterMetaData[] GetWidgetMetaData(ISession session, Logger logger)
 {
     var paramEngine = new WidgetParameterMetaData
@@ -1180,7 +1180,7 @@ public WidgetParameterMetaData[] GetWidgetMetaData(ISession session, Logger logg
 
 Обратите внимание, внутри метода `GetWidgetMetaData` доступна сессия базы данных. С ее помощью вы можете, например, сделать в параметрах виджета выбор сценария из списка сценариев, созданных в системе.
 
-```c#
+```csharp
 public WidgetParameterMetaData[] GetWidgetMetaData(ISession session, Logger logger)
 {
     var scripts = session
@@ -1210,7 +1210,7 @@ public WidgetParameterMetaData[] GetWidgetMetaData(ISession session, Logger logg
 
 Например, для виджета, запускающего сценарии, метод `GetWidgetData` может быть реализован следующим образом:
 
-```c#
+```csharp
 publi object GetWidgetData(Widget widget, WidgetParameter[] parameters, ISession session, Logger logger)
 {
     var scriptId = parameters.First(p => p.Name == "script-id").ValueGuid;
@@ -1312,7 +1312,7 @@ publi object GetWidgetData(Widget widget, WidgetParameter[] parameters, ISession
 
 Например:
 
-```c#
+```csharp
 [WebWidget("my-widget", "/widgets/my-widget.js", "MyPlugin.Resources.my-widget.js")]
 public class MicroclimatePlugin : PluginBase
 {
