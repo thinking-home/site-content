@@ -5,9 +5,9 @@
 Для работы системы понадобится:
 
 - компьютер с ОС Windows 7 или более поздней версии;
-- .NET Framework 4.5 ([скачать](http://www.microsoft.com/en-us/download/details.aspx?id=40779)).
+- [.NET Framework 4.5](http://www.microsoft.com/en-us/download/details.aspx?id=40779).
 
-Cкачайте и запустите [инсталлятор](https://yadi.sk/d/1zMwjNt-34Sy5F) котрый установит *ThinkingHome.System* на ваш компьютер. Во время установки можно выбрать язык (русский/английский) и порт для встроенного веб-сервера. Сервис будет установлен в папку `C:\Program Files\ThinkingHome\service`.
+Cкачайте и запустите **[инсталлятор](https://yadi.sk/d/1zMwjNt-34Sy5F)** котрый установит *ThinkingHome.System* на ваш компьютер. Во время установки можно выбрать язык (русский/английский) и порт для встроенного веб-сервера. Сервис будет установлен в папку `C:\Program Files\ThinkingHome\service`.
 
 ![](images/setup-step-2.png)
 ![](images/setup-step-3.png)
